@@ -40,7 +40,7 @@ export class Store {
 
 		// Fire listener callbacks
 		this[_listeners].forEach((listener) => {
-			listener(this[_state], _s);
+			listener(this[_state], _s, action);
 		});
 
 		// Each type of action handled returns something,
