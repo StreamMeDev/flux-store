@@ -34,7 +34,9 @@ export class Store {
 		var _s = this[_state];
 
 		// Call the reducer
-		this[_state] = this[_reducers][action.type](this[_state], action);
+		if (this[_reducers][action.type]) {
+			this[_state] = this[_reducers][action.type](this[_state], action);
+		}
 
 		// Fire listener callbacks
 		this[_listeners].forEach((listener) => {
@@ -61,5 +63,9 @@ export class Store {
 			subscribed = false;
 			this[_listeners].splice(this[_listeners].indexOf(listener), 1);
 		};
+	}
+
+	getState () {
+		return Object.assign({}, this[_state]);
 	}
 }
