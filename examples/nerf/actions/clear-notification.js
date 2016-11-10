@@ -13,5 +13,5 @@ export function clearNotification (code, time = 8000) {
 				code: code
 			});
 		}, time);
-	}
+	};
 }
