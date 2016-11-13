@@ -2,7 +2,7 @@
 import nets from 'nets';
 import {clearNotification} from './clear-notification';
 
-export default function deleteUserReducer (state, action) {
+export default function deleteUserFromListReducer (state, action) {
 	switch (action.status) {
 		case 'loading':
 			state.loading = true;
@@ -17,6 +17,23 @@ export default function deleteUserReducer (state, action) {
 			state.users = state.users.filter(function (user) {
 				return user.id !== parseInt(action.userId, 10);
 			});
+			break;
+	}
+	return state;
+}
+
+export function deleteUserReducer (state, action) {
+	switch (action.status) {
+		case 'loading':
+			state.loading = true;
+			break;
+		case 'error':
+			state.loading = false;
+			state.notifications = action.reasons || [];
+			break;
+		case 'success':
+			state.loading = false;
+			state.notifications = action.reasons || [];
 			break;
 	}
 	return state;

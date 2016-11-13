@@ -1,6 +1,7 @@
 'use strict';
-var validateEmail = require('simple-email-validator');
-var bodyParser = require('body-parser');
+import validateEmail from 'simple-email-validator';
+import bodyParser from 'body-parser';
+
 var userId = 0;
 var fallbackAvatars = [1, 2, 3, 4, 5, 6, 7, 8].map(function (i) {
 	return 'http://static1.creekcdn.com/frozen/images/avatars/avatar-id-' + i + '.png';
@@ -12,7 +13,7 @@ var users = [{
 	email: 'test@test.com'
 }];
 
-module.exports = function (app) {
+module.exports = function setupAPI (app) {
 	app.use('/api', bodyParser.json());
 
 	// Gets a paginated list of users
@@ -73,9 +74,57 @@ module.exports = function (app) {
 	});
 
 	// Gets a user by a given id
-	app.get('/api/users/:id', function (req, res) { });
+	app.get('/api/users/:id', function (req, res) {
+		var user = users.filter(function (user) {
+			return parseInt(req.params.id, 10) === user.id;
+		})[0];
+		if (!user) {
+			return res.status(404).json({
+				reasons: [{
+					message: 'User not found',
+					code: 'userNotFound',
+					level: 'warning'
+				}]
+			});
+		}
+		res.status(200).json(user);
+	});
 
-	app.post('/api/users/:id', function (req, res) { });
+	// Save the user with the given id
+	app.post('/api/users/:id', function (req, res) {
+		var user = users.filter(function (user) {
+			return parseInt(req.params.id, 10) === user.id;
+		})[0];
+		if (!user) {
+			return res.status(404).json({
+				reasons: [{
+					message: 'User not found',
+					code: 'userNotFound',
+					level: 'warning'
+				}]
+			});
+		}
+
+		// Validate data
+		if (validateEmail(req.body.email) !== true) {
+			return res.status(400).json({
+				reasons: [{
+					message: 'Invalid email',
+					code: 'invalidEmail',
+					level: 'danger',
+					field: 'email'
+				}]
+			});
+		}
+
+		// Update user
+		user.username = req.body.username || user.username;
+		user.email = req.body.email || user.email;
+		user.avatar = req.body.avatar || user.avatar;
+		res.status(200).json(user);
+	});
+
+	// Delete the user with the given id
 	app.delete('/api/users/:id', function (req, res) {
 		var found = false;
 		users = users.filter(function (user) {

@@ -1,3 +1,4 @@
+'use strict';
 export default function clearNotificationReducer (state, action) {
 	state.notifications = state.notifications.filter(function (note) {
 		return action.code !== note.code;

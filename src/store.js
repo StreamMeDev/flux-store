@@ -1,17 +1,18 @@
 var _state = Symbol('state');
 var _listeners = Symbol('listeners');
 var _reducers = Symbol('reducers');
+var _replaceState = Symbol('replaceState');
 
 export class Store {
-	constructor (initialState, reducers) {
-		// Shallow clone the initial state onto our state
-		this[_state] = initialState || {};
-
-		// Add the reducers
-		this[_reducers] = reducers || {};
-
+	constructor (reducers, initialState) {
 		// The listeners are an array
 		this[_listeners] = [];
+
+		// Add the reducers
+		this.replaceReducers(reducers);
+
+		// Set initial state
+		this.replaceState(initialState);
 	}
 
 	dispatch (action) {
@@ -65,7 +66,25 @@ export class Store {
 		};
 	}
 
+	replaceReducers (reducers) {
+		this[_reducers] = reducers || {};
+
+		// Always add replace state reducer
+		this[_reducers][_replaceState] = replaceStateReducer;
+	}
+
+	replaceState (state) {
+		this.dispatch({
+			type: _replaceState,
+			state: state
+		});
+	}
+
 	getState () {
 		return Object.assign({}, this[_state]);
 	}
+}
+
+function replaceStateReducer (state, action) {
+	return action.state;
 }

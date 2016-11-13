@@ -21,7 +21,7 @@ $ npm install --save @streammedev/flux-store
 ## Usage
 
 ```javascript
-import {Store} from '@streammedev/flux-store';
+import {createStore} from '@streammedev/flux-store';
 
 // Create our reducers
 function incr (state = 0, action) {
@@ -33,10 +33,10 @@ function decr (state = 0, action) {
 
 // Create our store instance with an 
 // initial state and the reducers
-var store = new Store(0, {
+var store = createStore({
 	incr: incr,
 	decr: decr
-});
+}, 0);
 
 // Subscribe to changes to the store
 store.subscribe((state) => {
@@ -58,6 +58,56 @@ store.dispatch({
 }); // 2
 
 ```
+
+## API
+
+### `createStore([reducers[, initialState]])`
+
+Creates a store, with the reducers and state passed in.  This is the reccomended way to create a store because it ensures
+the proper scope for the methods even if you pass them around, like in a React app when you pass `dispatch` as a prop.
+
+---
+
+### `Store([reducers[, initialState]])`
+
+The constructor for a store instance.
+
+#### `<Store>.dispatch(action)`
+
+Dispatches an action.  Action's in this store can be one of three things:
+
+1. A simple object.  For sync actions you can simply do this.  The only requirement is that the action
+object has a property `type`.
+2. A Promise. For actions that do asyncronus things, they should resolve/reject with an action object.
+3. A function. For action creators that want to dispatch multiple times. The function will get passed
+dispatch as the first and only argument.
+
+#### `<Store>.subscribe(func)`
+
+Subscribe to changes in the store.  The function passed to subscribe will be called every time
+an action is dispatched, even if there were no changes to the store.  It is passed the new state,
+the old state, and the action dispatched, in that order.  Use this method to update the your views.
+Subscribe returns the unsubscribe function.
+
+#### `<Store>.getState()`
+
+Returns a clone of the current state object.
+
+#### `<Store>.replaceState()`
+
+Replaces the current state with a whole new object.  This can be called to clear state between route changes
+in a single page app, or to initalize the state of a new store.  It will result in firing your listner functions.
+
+#### `<Store>.replaceReducers()`
+
+Replaces all reducers registered with this store.
+
+---
+
+### `bindActionCreators(actionCreators, dispatch)`
+
+A utility method which takes an object of action creators and returns a new object where 
+each key's function is not wrapped with a call to `dispatch`.  See [Redux's docs for more info](http://redux.js.org/docs/api/bindActionCreators.html).
 
 ## Development
 

@@ -1,56 +1,42 @@
 'use strict';
 import UserList from './container.jsx';
-import Store from '@streammedev/flux-store';
+import {createStore, bindActionCreators} from '@streammedev/flux-store';
 import createUserReducer, {createUser} from '../../actions/create-user';
-import deleteUserReducer, {deleteUser} from '../../actions/delete-user';
+import deleteUserFromListReducer, {deleteUser} from '../../actions/delete-user';
 import changeAvatarReducer, {changeAvatar} from '../../actions/change-avatar';
 import changeUsernameReducer, {changeUsername} from '../../actions/change-username';
 import changeEmailReducer, {changeEmail} from '../../actions/change-email';
 import clearNotificationReducer from '../../actions/clear-notification';
 
-module.exports = function (req, res) {
-	// initalize ui notifications
-	res.locals.context.notifications = res.locals.context.notifications || [];
-
-	// Add action handlers
-	res.locals.context.changeAvatar = function (value) {
-		store.dispatch(changeAvatar(value));
-	};
-	res.locals.context.changeEmail = function (value) {
-		store.dispatch(changeEmail(value));
-	};
-	res.locals.context.changeUsername = function (value) {
-		store.dispatch(changeUsername(value));
-	};
-	res.locals.context.createUser = function (user) {
-		store.dispatch(createUser(user));
-	};
-	res.locals.context.deleteUser = function (userId) {
-		store.dispatch(deleteUser(userId));
-	};
-
-	// Create the store
-	var store = new Store(res.locals.context, {
+export default function (req, res) {
+	// Create the store with the reducers
+	var store = createStore({
 		createUser: createUserReducer,
-		deleteUser: deleteUserReducer,
+		deleteUser: deleteUserFromListReducer,
 		changeAvatar: changeAvatarReducer,
 		changeEmail: changeEmailReducer,
 		changeUsername: changeUsernameReducer,
 		clearNotification: clearNotificationReducer
 	});
 
-	// Render the component
-	function render (state) {
-		res.renderReactComponent(UserList, Object.assign(state, {
-			dispatch: store.dispatch
-		}));
-	}
-
 	// Subscribe to state changes to render the component
-	store.subscribe(function (state) {
-		render(state);
+	var unsubscribe = store.subscribe(function (state) {
+		res.renderReactComponent(UserList, state);
 	});
 
-	// Initial render
-	render(store.getState());
-};
+	// Add action creators and dispatch to the context/store,
+	// along with other view related state initializers
+	// and replace the stores state with the new object
+	store.replaceState(Object.assign(res.locals.context, bindActionCreators({
+		changeAvatar,
+		changeEmail,
+		changeUsername,
+		createUser,
+		deleteUser
+	}, store.dispatch), {
+		dispatch: store.dispatch
+	}));
+
+	// On route change, unsubscribe the listener
+	req.emitter.once('routeChange', unsubscribe);
+}

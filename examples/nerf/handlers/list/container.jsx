@@ -1,5 +1,5 @@
 'use strict';
-var React = require('react');
+import React from 'react';
 
 module.exports = React.createClass({
 	displayName: 'UserList',
@@ -23,7 +23,7 @@ module.exports = React.createClass({
 	},
 	render: function () {
 		return (
-			<section>
+			<section className="container">
 				<h1>Users</h1>
 				{this.props.notifications && this.props.notifications.map((notification) => {
 					return (
@@ -63,19 +63,19 @@ module.exports = React.createClass({
 								return (
 									<tr key={user.id}>
 										<td>
-											<a href={'/' + user.id}><img src={user.avatar} width="35" /></a>
+											<a href={'/user/' + user.id}><img src={user.avatar} width="35" /></a>
 										</td>
 										<td>
-											<a href={'/' + user.id}>{'@' + user.username}</a>
+											<a href={'/user/' + user.id}>{'@' + user.username}</a>
 										</td>
 										<td>{user.email}</td>
 										<td>
 											<div className="btn-group">
-												<a href={'/' + user.id} className="btn btn-default">
+												<a href={'/user/' + user.id} className="btn btn-default">
 													<span className="glyphicon glyphicon-pencil" aria-hidden="true" /> Edit
 												</a>
 												<button onClick={this.deleteUser} data-user-id={user.id} className="btn btn-danger">
-													<span className="glyphicon glyphicon-remove" aria-hidden="true" /> Delete
+													<span className="glyphicon glyphicon-trash" aria-hidden="true" /> Delete
 												</button>
 											</div>
 										</td>

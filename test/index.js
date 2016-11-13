@@ -5,12 +5,12 @@ var Store = require('../');
 describe('flux-store', function () {
 	it('should dispatch a sync action', function (done) {
 		var s = new Store({
-			foo: 'bar'
-		}, {
 			changeFoo: function (state, action) {
 				state.foo = action.value;
 				return state;
 			}
+		}, {
+			foo: 'bar'
 		});
 		s.subscribe(function (state) {
 			assert.equal(state.foo, 'baz');
@@ -23,12 +23,12 @@ describe('flux-store', function () {
 	});
 	it('should dispatch an action with a promise', function (done) {
 		var s = new Store({
-			foo: 'bar'
-		}, {
 			changeFoo: function (state, action) {
 				state.foo = action.value;
 				return state;
 			}
+		}, {
+			foo: 'bar'
 		});
 		s.subscribe(function (state) {
 			assert.equal(state.foo, 'baz');
@@ -45,12 +45,12 @@ describe('flux-store', function () {
 	});
 	it('should dispatch an action with a function', function (done) {
 		var s = new Store({
-			foo: 'bar'
-		}, {
 			changeFoo: function (state, action) {
 				state.foo = action.value;
 				return state;
 			}
+		}, {
+			foo: 'bar'
 		});
 		var called = 1;
 		s.subscribe(function (state) {
