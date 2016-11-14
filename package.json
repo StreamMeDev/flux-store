@@ -1,6 +1,6 @@
 {
   "name": "@streammedev/flux-store",
-  "version": "1.0.0",
+  "version": "1.0.0-BETA-1",
   "description": "A redux like data store for our NERF apps",
   "main": "index.js",
   "keywords": [
@@ -8,7 +8,7 @@
     "flux",
     "store",
     "dispatcher",
-	"nerf"
+    "nerf"
   ],
   "author": "StreamMe",
   "license": "ICS",
