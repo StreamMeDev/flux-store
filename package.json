@@ -1,6 +1,6 @@
 {
   "name": "@streammedev/flux-store",
-  "version": "1.0.0-BETA-1",
+  "version": "1.0.0-BETA-2",
   "description": "A redux like data store for our NERF apps",
   "main": "index.js",
   "keywords": [
