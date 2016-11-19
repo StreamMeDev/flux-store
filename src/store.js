@@ -16,6 +16,10 @@ export class Store {
 	}
 
 	dispatch (action) {
+		if (!action) {
+			return;
+		}
+
 		// Actions that are functions get called with the
 		// dispatch mathed, like react-thunk
 		if (typeof action === 'function') {
