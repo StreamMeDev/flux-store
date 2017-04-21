@@ -70,6 +70,10 @@ export class Store {
 		};
 	}
 
+	addReducer (type, fnc) {
+		this[_reducers][type] = fnc;
+	}
+
 	replaceReducers (reducers) {
 		this[_reducers] = reducers || {};
 
