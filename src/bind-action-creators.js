@@ -6,7 +6,7 @@ function bindActionCreator (actionCreator, dispatch) {
 	};
 }
 
-export function bindActionCreators (actionCreators, dispatch) {
+module.exports = function bindActionCreators (actionCreators, dispatch) {
 	if (typeof actionCreators === 'function') {
 		return bindActionCreator(actionCreators, dispatch);
 	}
@@ -15,4 +15,4 @@ export function bindActionCreators (actionCreators, dispatch) {
 		obj[key] = bindActionCreator(actionCreators[key], dispatch);
 		return obj;
 	}, {});
-}
+};
