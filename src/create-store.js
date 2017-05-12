@@ -16,6 +16,9 @@ module.exports = function createStore (reducers, initialState) {
 		subscribe: function subscribe (listener) {
 			return store.subscribe(listener);
 		},
+		addReducer: function addReducer (type, reducer) {
+			return store.addReducer(type, reducer);
+		},
 		replaceReducers: function replaceReducers (reducers) {
 			return store.replaceReducers();
 		},

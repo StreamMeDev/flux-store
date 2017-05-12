@@ -102,6 +102,10 @@ in a single page app, or to initalize the state of a new store.  It will result 
 
 Replaces all reducers registered with this store.
 
+#### `<Store>.addReducer(type, reducerFunc)`
+
+Adds a reducer for an action type.
+
 ---
 
 ### `bindActionCreators(actionCreators, dispatch)`

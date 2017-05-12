@@ -1,6 +1,6 @@
 {
   "name": "@streammedev/flux-store",
-  "version": "1.0.0-BETA-2",
+  "version": "1.0.0-BETA-3",
   "description": "A redux like flux data store",
   "main": "index.js",
   "keywords": [
