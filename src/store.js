@@ -1,9 +1,10 @@
-var _state = Symbol('state');
-var _listeners = Symbol('listeners');
-var _reducers = Symbol('reducers');
-var _replaceState = Symbol('replaceState');
+'use strict';
+const _state = Symbol('state');
+const _listeners = Symbol('listeners');
+const _reducers = Symbol('reducers');
+const _replaceState = Symbol('replaceState');
 
-export class Store {
+module.exports = class Store {
 	constructor (reducers, initialState) {
 		// The listeners are an array
 		this[_listeners] = [];
@@ -91,7 +92,7 @@ export class Store {
 	getState () {
 		return Object.assign({}, this[_state]);
 	}
-}
+};
 
 function replaceStateReducer (state, action) {
 	return action.state;
