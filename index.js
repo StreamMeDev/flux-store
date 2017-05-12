@@ -1,5 +1,5 @@
-var createStore = require('./lib/create-store').createStore;
+const createStore = require('./lib/create-store');
 module.exports = createStore;
 module.exports.createStore = createStore;
-module.exports.Store = require('./lib/store').Store;
-module.exports.bindActionCreators = require('./lib/bind-action-creators').bindActionCreators;
+module.exports.Store = require('./lib/store');
+module.exports.bindActionCreators = require('./lib/bind-action-creators');

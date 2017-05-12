@@ -1,3 +1,5 @@
+'use strict';
+
 function bindActionCreator (actionCreator, dispatch) {
 	return function (...args) {
 		return dispatch(actionCreator(...args));

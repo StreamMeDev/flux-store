@@ -1,9 +1,10 @@
-import {Store} from './store';
+'use strict';
+const Store = require('./store');
 
 // This method is reccomended because it does not rely on
 // the store methods maintaining their `this` context.
 // But if you are a pro, and want to use the class directly
-export function createStore (reducers, initialState) {
+module.exports = function createStore (reducers, initialState) {
 	// Create the store
 	var store = new Store(reducers, initialState);
 
@@ -25,4 +26,4 @@ export function createStore (reducers, initialState) {
 			return store.getState();
 		}
 	};
-}
+};
