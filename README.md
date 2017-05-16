@@ -2,7 +2,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@streammedev/flux-store.svg)](https://npmjs.org/package/@streammedev/flux-store)
 [![NPM Downloads](https://img.shields.io/npm/dm/@streammedev/flux-store.svg)](https://npmjs.org/package/nighthawk)
-[![js-happiness-style](https://img.shields.io/badge/code%20style-happiness-brightgreen.svg)](https://github.com/JedWatson/happiness)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 A Redux-like data store without the enforced opinions.  Similar to Redux, this module is based
 on Flux principles, the entire state is stored in a single object, and all mutations are
