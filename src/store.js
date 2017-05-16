@@ -29,7 +29,7 @@ module.exports = class Store {
 
     // Actions that are promises are async,
     // and get dispatched with the resolve value
-    if (action instanceof Promise) {
+    if (typeof Promise !== 'undefined' && action instanceof Promise) {
       var _dispatch = function (_action) {
         this.dispatch(_action)
       }.bind(this)
