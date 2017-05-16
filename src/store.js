@@ -1,8 +1,16 @@
 'use strict'
-const _state = Symbol('state')
-const _listeners = Symbol('listeners')
-const _reducers = Symbol('reducers')
-const _replaceState = Symbol('replaceState')
+// @TODO remove when symbols are fully supported
+// support browser without symbols with a simple fallback
+var _Symbol = Symbol
+if (typeof Symbol === 'undefined') {
+  _Symbol = function (token) {
+    return '_$__' + token
+  }
+}
+const _state = _Symbol('state')
+const _listeners = _Symbol('listeners')
+const _reducers = _Symbol('reducers')
+const _replaceState = _Symbol('replaceState')
 
 module.exports = class Store {
   constructor (reducers, initialState) {
