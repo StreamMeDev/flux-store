@@ -1,6 +1,8 @@
 /* global describe, it */
 var assert = require('assert')
-var Store = require('../')
+var fluxStore = require('../')
+var Store = fluxStore.Store
+var combineReducers = fluxStore.combineReducers
 
 describe('flux-store', function () {
   it('should dispatch a sync action', function (done) {
@@ -21,6 +23,7 @@ describe('flux-store', function () {
       value: 'baz'
     })
   })
+
   it('should dispatch an action with a promise', function (done) {
     var s = new Store({
       changeFoo: function (state, action) {
@@ -43,6 +46,7 @@ describe('flux-store', function () {
       }, 10)
     }))
   })
+
   it('should dispatch an action with a function', function (done) {
     var s = new Store({
       changeFoo: function (state, action) {
@@ -73,5 +77,16 @@ describe('flux-store', function () {
         })
       }, 10)
     })
+  })
+
+  it('should combine reducers', function () {
+    var reducer = combineReducers([function (s, a) {
+      assert.equal(a.type, 'action')
+      return s + 'bar'
+    }, function (s, a) {
+      assert.equal(a.type, 'action')
+      return s + 'baz'
+    }])
+    assert.equal(reducer('foo', {type: 'action'}), 'foobarbaz')
   })
 })
