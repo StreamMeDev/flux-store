@@ -4,11 +4,11 @@
 [![NPM Downloads](https://img.shields.io/npm/dm/@streammedev/flux-store.svg)](https://npmjs.org/package/nighthawk)
 [![js-happiness-style](https://img.shields.io/badge/code%20style-happiness-brightgreen.svg)](https://github.com/JedWatson/happiness)
 
-A Redux like data store without the enforced opinions.  Similar to Redux this module is based 
-on Flux principals, the entire state is stored in a single object, and all mutations are
+A Redux-like data store without the enforced opinions.  Similar to Redux, this module is based
+on Flux principles, the entire state is stored in a single object, and all mutations are
 described with action objects and applied with reducers.
 
-The main difference is that this module supports asnycronous actions out of the box, but there are a few
+The main difference is that this module supports asynchronous actions out of the box, but there are a few
 other differences.  This flux store allows for multiple reducers, which can be composed based on the action
 name, not the data structure.  This allows for multiple reducers to access and modify data across the application.
 
@@ -31,7 +31,7 @@ function decr (state = 0, action) {
   return state - (action.value || 1);
 }
 
-// Create our store instance with an 
+// Create our store instance with an
 // initial state and the reducers
 var store = createStore({
 	incr: incr,
@@ -63,7 +63,7 @@ store.dispatch({
 
 ### `createStore([reducers[, initialState]])`
 
-Creates a store, with the reducers and state passed in.  This is the reccomended way to create a store because it ensures
+Creates a store, with the reducers and state passed in.  This is the recommended way to create a store because it ensures
 the proper scope for the methods even if you pass them around, like in a React app when you pass `dispatch` as a prop.
 
 ---
@@ -74,11 +74,11 @@ The constructor for a store instance.
 
 #### `<Store>.dispatch(action)`
 
-Dispatches an action.  Action's in this store can be one of three things:
+Dispatches an action.  Actions in this store can be one of three things:
 
 1. A simple object.  For sync actions you can simply do this.  The only requirement is that the action
 object has a property `type`.
-2. A Promise. For actions that do asyncronus things, they should resolve/reject with an action object.
+2. A Promise. For actions that do asynchronous things, they should resolve/reject with an action object.
 3. A function. For action creators that want to dispatch multiple times. The function will get passed
 dispatch as the first and only argument.
 
@@ -96,7 +96,7 @@ Returns a clone of the current state object.
 #### `<Store>.replaceState()`
 
 Replaces the current state with a whole new object.  This can be called to clear state between route changes
-in a single page app, or to initalize the state of a new store.  It will result in firing your listner functions.
+in a single page app, or to initialize the state of a new store.  It will result in firing your listener functions.
 
 #### `<Store>.replaceReducers()`
 
@@ -110,7 +110,7 @@ Adds a reducer for an action type.
 
 ### `bindActionCreators(actionCreators, dispatch)`
 
-A utility method which takes an object of action creators and returns a new object where 
+A utility method which takes an object of action creators and returns a new object where
 each key's function is not wrapped with a call to `dispatch`.  See [Redux's docs for more info](http://redux.js.org/docs/api/bindActionCreators.html).
 
 ## Development

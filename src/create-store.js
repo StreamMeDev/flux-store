@@ -1,7 +1,7 @@
 'use strict';
 const Store = require('./store');
 
-// This method is reccomended because it does not rely on
+// This method is recommended because it does not rely on
 // the store methods maintaining their `this` context.
 // But if you are a pro, and want to use the class directly
 module.exports = function createStore (reducers, initialState) {

@@ -22,7 +22,7 @@ module.exports = class Store {
 		}
 
 		// Actions that are functions get called with the
-		// dispatch mathed, like react-thunk
+		// dispatch method, like react-thunk
 		if (typeof action === 'function') {
 			return action(this.dispatch.bind(this));
 		}
