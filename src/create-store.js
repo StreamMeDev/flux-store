@@ -20,7 +20,7 @@ module.exports = function createStore (reducers, initialState) {
       return store.addReducer(type, reducer)
     },
     replaceReducers: function replaceReducers (reducers) {
-      return store.replaceReducers()
+      return store.replaceReducers(reducers)
     },
     replaceState: function replaceState (state) {
       return store.replaceState(state)
